@@ -72,13 +72,19 @@ def predict_genre(audio_path):
     return labels_dict
 
 # Gradio Interface
-iface = gr.Interface(
-    fn=predict_genre,
-    inputs=gr.Audio(type="filepath", label="Upload Music File"),
-    outputs=gr.Label(num_top_classes=3, label="Predicted Genre"),
-    title="ViT Music Genre Classification",
-    description="Upload a song or audio clip. The Vision Transformer (ViT) model will convert it to a Mel-spectrogram and predict the top 3 most likely genres."
-)
+with gr.Blocks() as iface:
+    gr.HTML("<h1 style='text-align: center;'>🎶 ViT Music Genre Classification</h1>")
+    gr.HTML(
+        "<p style='text-align: center; font-size: 1.1rem;'>Upload an audio clip, and this Vision Transformer model will analyze its Mel-spectrogram to predict the most likely genre.<br>"
+        "<b>Supported Genres (10):</b> Blues, Classical, Country, Disco, Hip-Hop, Jazz, Metal, Pop, Reggae, Rock.</p>"
+    )
+    
+    with gr.Column():
+        audio_input = gr.Audio(type="filepath", label="Upload Music File")
+        predict_btn = gr.Button("Predict Genre", variant="primary")
+        label_output = gr.Label(num_top_classes=3, label="Predicted Genre")
+        
+    predict_btn.click(fn=predict_genre, inputs=audio_input, outputs=label_output)
 
 if __name__ == "__main__":
     iface.launch(share=False)
