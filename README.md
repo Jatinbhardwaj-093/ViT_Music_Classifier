@@ -30,24 +30,15 @@ The model has been specifically trained to recognize and classify the following 
 
 When an audio clip is processed, the model provides the top three most likely matches along with their probability scores.
 
-## Code Infrastructure
+## Project Structure
 
-The project is structured into three main components: data processing, model training, and the user interface.
+This repository contains all necessary scripts, configuration files, and saved weights to immediately run the genre classification interface.
 
-### 1. Data Processing and Training (`ViT_music_classification.ipynb`)
-This Jupyter Notebook contains the complete experimentation and training pipeline:
-- **Audio Processing:** Uses the `librosa` library to read audio files and convert them into Mel-spectrograms. A Mel-spectrogram is a visual layout of audio frequencies over time.
-- **Model Architecture:** Instead of using traditional audio models, this project uses a Vision Transformer (ViT). By treating the spectrograms as images, the Vision Transformer learns visual patterns that correspond to different musical characteristics.
-- **Training:** The notebook handles the downloading of the dataset, processing the audio stems, training the custom model, and evaluating its performance.
-
-### 2. The Web Interface (`app.py`)
-This script runs the interactive tracking and prediction environment. Built using Gradio, it allows users to easily test the model. 
-- It sets up a local web server where users can upload their own audio files.
-- It applies the exact same preprocessing steps (converting the uploaded audio into a 5-second Mel-spectrogram image).
-- It passes the image to the trained Vision Transformer to receive live predictions.
-
-### 3. Model Storage (`vit-mashup-best-local/`)
-This directory holds the final, trained model weights (`model.safetensors`) and the model configurations required to load the model properly without having to retrain from scratch. It is loaded automatically when the web interface starts.
+- **`ViT_music_classification.ipynb`**: This is the core Jupyter Notebook containing the research, dataset parsing, and Model training loop. It converts the audio into Mel-spectrograms (using Librosa) and explicitly bridges audio data to image models.
+- **`app.py`**: The main web interface script built with Gradio. It uses this code to serve the frontend interface, quickly processing user-uploaded `.wav` or `.mp3` files into spectrograms, and loading the model to return clear predictions.
+- **`requirements.txt`**: A list of all required Python libraries—like `torch`, `transformers`, and `librosa`—needed to run this project smoothly.
+- **`vit-mashup-best-local/`**: This directory stores our local fine-tuned model weights and configurations.
+  - *Local Model Details*: This contains a Vision Transformer model that was locally fine-tuned directly on our curated music dataset. It was successfully trained for 10 epochs, effectively learning to map the visual patterns of spectrograms to our 10 distinct musical genres.
 
 ## How to Run
 
