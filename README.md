@@ -1,3 +1,13 @@
+---
+title: ViT Music Genre Classification
+emoji: 🎶
+colorFrom: indigo
+colorTo: purple
+sdk: gradio
+app_file: app.py
+pinned: false
+---
+
 # Music Genre Classification using Vision Transformers
 
 This project implements a machine learning system that analyzes audio files and classifies them into their primary musical genre. By converting audio into visual representations (spectrograms), the system leverages computer vision techniques to identify audio patterns and predict the correct genre.
